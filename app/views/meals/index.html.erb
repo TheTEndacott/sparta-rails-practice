@@ -16,14 +16,16 @@
       <tr>
         <td><%= meal.dish %></td>
         <td><%= meal.shop.name %></td>
+        <% if current_user.isAdmin?%>
         <td><%= link_to 'Show', meal %></td>
         <td><%= link_to 'Edit', edit_meal_path(meal) %></td>
         <td><%= link_to 'Destroy', meal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
 <br>
-
-<%= link_to 'New Meal', new_meal_path %>
+<% if current_user.isAdmin?%>
+  <%=link_to 'New Meal', new_meal_path%>
+<%end%>

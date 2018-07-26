@@ -4,6 +4,12 @@
   <strong>Name:</strong>
   <%= @shop.name %>
 </p>
+<p>
+  <strong>Dishes:</strong>
+  <% @shop.meals.each do |meal| %>
+    <%= meal.dish %>
+  <% end %>
+</p>
 
 <%= link_to 'Edit', edit_shop_path(@shop) %> |
 <%= link_to 'Back', shops_path %>

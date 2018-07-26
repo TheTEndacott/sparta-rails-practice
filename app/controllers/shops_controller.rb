@@ -22,7 +22,7 @@ class ShopsController < ApplicationController
       redirect_to shops_path
     else
       @shop = Shop.new
-  end
+    end
   end
 
   # GET /shops/1/edit

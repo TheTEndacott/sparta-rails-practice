@@ -1,9 +1,11 @@
 class MealsController < ApplicationController
   before_action :set_meal, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /meals
   # GET /meals.json
   def index
+    @user = current_user.isAdmin
     @meals = Meal.all
   end
 
@@ -14,7 +16,12 @@ class MealsController < ApplicationController
 
   # GET /meals/new
   def new
-    @meal = Meal.new
+    if !current_user.isAdmin?
+      puts "WORK?"
+      redirect_to meals_path
+    else
+      @meal = Meal.new
+    end
   end
 
   # GET /meals/1/edit
@@ -24,15 +31,19 @@ class MealsController < ApplicationController
   # POST /meals
   # POST /meals.json
   def create
-    @meal = Meal.new(meal_params)
+    if !current_user.isAdmin?
+      redirect_to meals_path
+    else
+      @meal = Meal.new(meal_params)
 
-    respond_to do |format|
-      if @meal.save
-        format.html { redirect_to @meal, notice: 'Meal was successfully created.' }
-        format.json { render :show, status: :created, location: @meal }
-      else
-        format.html { render :new }
-        format.json { render json: @meal.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @meal.save
+          format.html { redirect_to @meal, notice: 'Meal was successfully created.' }
+          format.json { render :show, status: :created, location: @meal }
+        else
+          format.html { render :new }
+          format.json { render json: @meal.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -40,13 +51,17 @@ class MealsController < ApplicationController
   # PATCH/PUT /meals/1
   # PATCH/PUT /meals/1.json
   def update
-    respond_to do |format|
-      if @meal.update(meal_params)
-        format.html { redirect_to @meal, notice: 'Meal was successfully updated.' }
-        format.json { render :show, status: :ok, location: @meal }
-      else
-        format.html { render :edit }
-        format.json { render json: @meal.errors, status: :unprocessable_entity }
+    if !current_user.isAdmin?
+      redirect_to meals_path
+    else
+      respond_to do |format|
+        if @meal.update(meal_params)
+          format.html { redirect_to @meal, notice: 'Meal was successfully updated.' }
+          format.json { render :show, status: :ok, location: @meal }
+        else
+          format.html { render :edit }
+          format.json { render json: @meal.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

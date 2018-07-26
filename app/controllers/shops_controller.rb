@@ -1,20 +1,28 @@
 class ShopsController < ApplicationController
   before_action :set_shop, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /shops
   # GET /shops.json
   def index
+    @user = current_user.isAdmin
     @shops = Shop.all
   end
 
   # GET /shops/1
   # GET /shops/1.json
   def show
+    @shop = Shop.find(params[:id])
   end
 
   # GET /shops/new
   def new
-    @shop = Shop.new
+    if !current_user.isAdmin?
+      puts "WORK?"
+      redirect_to shops_path
+    else
+      @shop = Shop.new
+  end
   end
 
   # GET /shops/1/edit
@@ -24,15 +32,18 @@ class ShopsController < ApplicationController
   # POST /shops
   # POST /shops.json
   def create
-    @shop = Shop.new(shop_params)
-
-    respond_to do |format|
-      if @shop.save
-        format.html { redirect_to @shop, notice: 'Shop was successfully created.' }
-        format.json { render :show, status: :created, location: @shop }
-      else
-        format.html { render :new }
-        format.json { render json: @shop.errors, status: :unprocessable_entity }
+    if !current_user.isAdmin?
+      redirect_to shops_path
+    else
+      @shop = Shop.new(shop_params)
+      respond_to do |format|
+        if @shop.save
+          format.html { redirect_to @shop, notice: 'Shop was successfully created.' }
+          format.json { render :show, status: :created, location: @shop }
+        else
+          format.html { render :new }
+          format.json { render json: @shop.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -40,6 +51,9 @@ class ShopsController < ApplicationController
   # PATCH/PUT /shops/1
   # PATCH/PUT /shops/1.json
   def update
+    if !current_user.isAdmin?
+      redirect_to shops_path
+    else
     respond_to do |format|
       if @shop.update(shop_params)
         format.html { redirect_to @shop, notice: 'Shop was successfully updated.' }
@@ -49,16 +63,21 @@ class ShopsController < ApplicationController
         format.json { render json: @shop.errors, status: :unprocessable_entity }
       end
     end
+    end
   end
 
   # DELETE /shops/1
   # DELETE /shops/1.json
   def destroy
+    if !current_user.isAdmin?
+      redirect_to shops_path
+    else
     @shop.destroy
     respond_to do |format|
       format.html { redirect_to shops_url, notice: 'Shop was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
   end
 
   private

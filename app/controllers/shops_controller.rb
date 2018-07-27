@@ -12,7 +12,7 @@ class ShopsController < ApplicationController
   # GET /shops/1
   # GET /shops/1.json
   def show
-    @shops = Shop.find(params[:id])
+    @shop = Shop.find(params[:id])
   end
 
   # GET /shops/new
@@ -20,7 +20,7 @@ class ShopsController < ApplicationController
     if !current_user.isAdmin?
       redirect_to shops_path
     else
-      @shops = Shop.new
+      @shop = Shop.new
   end
  end
 
@@ -34,14 +34,14 @@ class ShopsController < ApplicationController
     if !current_user.isAdmin?
       redirect_to shops_path
     else
-      @shops = Shop.new(shop_params)
+      @shop = Shop.new(shop_params)
       respond_to do |format|
-        if @shops.save
-          format.html { redirect_to @shops, notice: 'Shop was successfully created.' }
-          format.json { render :show, status: :created, location: @shops }
+        if @shop.save
+          format.html { redirect_to @shop, notice: 'Shop was successfully created.' }
+          format.json { render :show, status: :created, location: @shop }
         else
           format.html { render :new }
-          format.json { render json: @shops.errors, status: :unprocessable_entity }
+          format.json { render json: @shop.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -54,12 +54,12 @@ class ShopsController < ApplicationController
       redirect_to shops_path
     else
     respond_to do |format|
-      if @shops.update(shop_params)
-        format.html { redirect_to @shops, notice: 'Shop was successfully updated.' }
-        format.json { render :show, status: :ok, location: @shops }
+      if @shop.update(shop_params)
+        format.html { redirect_to @shop, notice: 'Shop was successfully updated.' }
+        format.json { render :show, status: :ok, location: @shop }
       else
         format.html { render :edit }
-        format.json { render json: @shops.errors, status: :unprocessable_entity }
+        format.json { render json: @shop.errors, status: :unprocessable_entity }
       end
     end
     end
@@ -71,7 +71,7 @@ class ShopsController < ApplicationController
     if !current_user.isAdmin?
       redirect_to shops_path
     else
-    @shops.destroy
+    @shop.destroy
     respond_to do |format|
       format.html { redirect_to shops_url, notice: 'Shop was successfully destroyed.' }
       format.json { head :no_content }
@@ -82,7 +82,7 @@ class ShopsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shop
-      @shops = Shop.find(params[:id])
+      @shop = Shop.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

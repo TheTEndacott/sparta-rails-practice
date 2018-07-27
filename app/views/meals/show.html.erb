@@ -1,14 +1,17 @@
-<p id="notice"><%= notice %></p>
+<div class="center">
+  <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Dish:</strong>
-  <%= @meal.dish %>
-</p>
+  <p>
+    <strong>Dish:</strong>
+    <%= @meal.dish %>
+  </p>
 
-<p>
-  <strong>Shop:</strong>
-  <%= @meal.shop.name %>
-</p>
+  <p>
+    <strong>Shop:</strong>
+    <%= @meal.shop.name %>
+  </p>
+</div>
+
 
 <%= link_to 'Edit', edit_meal_path(@meal) %> |
 <%= link_to 'Back', meals_path %>

@@ -22,7 +22,7 @@ class ShopsController < ApplicationController
     else
       @shops = Shop.new
   end
-  end
+ end
 
   # GET /shops/1/edit
   def edit

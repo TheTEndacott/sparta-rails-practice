@@ -18,7 +18,6 @@
 
   <div class="field">
     <%= form.label :shop_id %>
-    <!-- <%= form.text_field :shop_id %> -->
     <%= collection_select(:meal, :shop_id, Shop.all, :id, :name) %>
   </div>
 

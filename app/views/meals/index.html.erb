@@ -1,31 +1,34 @@
 <p id="notice"><%= notice %></p>
+<div class="centered">
+  <table>
+    <thead>
+      <tr>
+        <th>Dish</th>
+        <th>Shop</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
 
+    <tbody>
+      <% @meals.each do |meal| %>
+        <tr>
+          <td><%= meal.dish %></td>
+          <td><%= meal.shop.name %></td>
+          <% if current_user.isAdmin?%>
+          <td><%= link_to 'Show', meal %></td>
+          <td><%= link_to 'Edit', edit_meal_path(meal) %></td>
+          <td><%= link_to 'Destroy', meal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 <h1>Meals</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Dish</th>
-      <th>Shop</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @meals.each do |meal| %>
-      <tr>
-        <td><%= meal.dish %></td>
-        <td><%= meal.shop.name %></td>
-        <% if current_user.isAdmin?%>
-        <td><%= link_to 'Show', meal %></td>
-        <td><%= link_to 'Edit', edit_meal_path(meal) %></td>
-        <td><%= link_to 'Destroy', meal, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
 <br>
 <% if current_user.isAdmin?%>
-  <%=link_to 'New Meal', new_meal_path%>
-<%end%>
+<%= link_to 'New Meal', new_meal_path %>
+<% end %>

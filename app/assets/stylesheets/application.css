@@ -13,9 +13,9 @@
  *= require_tree .
  *= require_self
  */
- body {
+ /* body {
    margin: 0;
- }
+ } */
 
  ul {
      list-style-type: none;

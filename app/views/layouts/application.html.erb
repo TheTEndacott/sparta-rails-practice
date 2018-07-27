@@ -4,7 +4,6 @@
     <title>Restaurant</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
@@ -12,10 +11,10 @@
      <div class="container">
 
        <ul class="nav navbar-nav">
-
          <li><%= link_to 'Home', shops_path %></li>
-         <li><%= link_to 'Meal', meals_path %></li>
-         <li><%= link_to 'Show', shops_path %></li>
+         <li><%= link_to 'Meals', meals_path %></li>
+         <li><%= link_to 'Shops', shops_path %></li>
+         <li><%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %></li>
        </ul>
 
 
@@ -26,6 +25,8 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="">
+      <%= yield %>
+    </div>
   </body>
 </html>

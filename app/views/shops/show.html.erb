@@ -6,9 +6,9 @@
 </p>
 <p>
   <strong>Dishes:</strong>
-  <% @shop.meals.each do |meal| %>
-    <%= meal.dish %>
-  <% end %>
+  <ol><% @shop.meals.each do |meal| %>
+    <p><%= meal.dish %></p>
+  <% end %></ol>
 </p>
 
 <%= link_to 'Edit', edit_shop_path(@shop) %> |

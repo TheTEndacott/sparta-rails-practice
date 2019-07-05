@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @shop.name %>
+</p>
+<p>
+  <strong>Dishes:</strong>
+  <ol><% @shop.meals.each do |meal| %>
+    <p><%= meal.dish %></p>
+  <% end %></ol>
+</p>
+
+<%= link_to 'Edit', edit_shop_path(@shop) %> |
+<%= link_to 'Back', shops_path %>
